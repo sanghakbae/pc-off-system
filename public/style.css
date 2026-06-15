@@ -1485,7 +1485,30 @@ td.late { color: var(--blue); font-weight: 800; }
 @media (max-width: 430px) {
   body,
   body * {
-    font-size: 9px;
+    font-size: 9px !important;
+    line-height: 1.15;
+  }
+
+  input,
+  select,
+  button,
+  a,
+  .tool-btn,
+  .csv-btn,
+  .log-controls input,
+  .log-controls select,
+  .log-controls button,
+  .log-controls a,
+  .machine-tools input,
+  .machine-tools select,
+  .machine-tools button,
+  .machine-tools a,
+  .panel-actions input,
+  .panel-actions select,
+  .panel-actions button,
+  .panel-actions a {
+    font-size: 9px !important;
+    line-height: 1 !important;
   }
 
   body,
@@ -1571,7 +1594,7 @@ td.late { color: var(--blue); font-weight: 800; }
     max-width: 92px;
     height: 22px;
     padding: 0 5px;
-    font-size: 9px;
+    font-size: 9px !important;
     line-height: 20px;
     white-space: nowrap;
     overflow: hidden;
@@ -1604,12 +1627,13 @@ td.late { color: var(--blue); font-weight: 800; }
   .report-page .panel,
   .stat-card {
     padding: 6px;
+    margin-bottom: 4px;
   }
 
   .overview,
   .stats-kpis {
     display: grid;
-    gap: 5px;
+    gap: 4px;
     width: 100%;
     overflow: hidden;
   }
@@ -1623,7 +1647,7 @@ td.late { color: var(--blue); font-weight: 800; }
   .cards,
   .report-page .cards {
     display: grid;
-    gap: 5px;
+    gap: 4px;
     width: 100%;
     overflow: hidden;
   }
@@ -1690,36 +1714,44 @@ td.late { color: var(--blue); font-weight: 800; }
     flex: 1 1 86px;
     width: auto;
     min-width: 76px;
-    height: 26px;
-    padding: 0 4px;
+    height: 22px;
+    padding: 0 2px;
+    font-size: 9px !important;
+    line-height: 1 !important;
   }
 
   .report-page .log-controls button,
   .log-controls button {
-    flex: 0 0 30px;
-    width: 30px;
-    min-width: 30px;
-    height: 26px;
+    flex: 0 0 24px;
+    width: 24px;
+    min-width: 24px;
+    height: 22px;
     padding: 0 2px;
+    font-size: 9px !important;
+    line-height: 1 !important;
   }
 
   .report-page .csv-btn,
   .csv-btn {
-    flex: 0 0 30px;
-    width: 30px;
-    min-width: 30px;
-    height: 26px;
+    flex: 0 0 24px;
+    width: 24px;
+    min-width: 24px;
+    height: 22px;
     padding: 0 2px;
     justify-content: center;
+    font-size: 9px !important;
+    line-height: 1 !important;
   }
 
   .report-page .log-controls select,
   .log-controls select {
     flex: 1 1 74px;
     width: auto;
-    min-width: 64px;
-    height: 26px;
-    padding: 0 4px;
+    min-width: 54px;
+    height: 22px;
+    padding: 0 2px;
+    font-size: 9px !important;
+    line-height: 1 !important;
   }
 
   .log-controls .tool-btn {
@@ -1748,10 +1780,12 @@ td.late { color: var(--blue); font-weight: 800; }
   .tool-btn {
     width: 100%;
     min-width: 0;
-    height: 23px;
-    padding: 0 3px;
+    height: 22px;
+    padding: 0 2px;
     justify-content: center;
     white-space: nowrap;
+    font-size: 9px !important;
+    line-height: 1 !important;
   }
 
   .stat-card h3 {
@@ -1763,8 +1797,8 @@ td.late { color: var(--blue); font-weight: 800; }
   }
 
   .chart-empty {
-    min-height: 32px;
-    padding: 4px 0;
+    min-height: 22px;
+    padding: 2px 0;
   }
 
   .donut-wrap {
