@@ -336,6 +336,12 @@ body.setup-page .wrap {
 .portal-embedded header .meta {
   display: none;
 }
+.portal-machines-section {
+  display: none;
+}
+.portal-view-machines .portal-machines-section {
+  display: block;
+}
 .portal-view-dashboard .portal-machines-section {
   display: none;
 }
@@ -548,14 +554,14 @@ body.setup-page .wrap {
   display: block;
   max-width: 100%;
   overflow: hidden;
-  text-overflow: clip;
+  text-overflow: ellipsis;
   white-space: nowrap;
   letter-spacing: 0;
 }
 .machine-name .person-name {
   min-height: 17px;
   color: #334155;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 700;
   line-height: 1.2;
 }
@@ -566,14 +572,14 @@ body.setup-page .wrap {
 .machine-name .host-name {
   margin-top: 4px;
   color: #475569;
-  font-size: var(--host-size, 13px);
+  font-size: var(--host-size, 11px);
   font-weight: 650;
   line-height: 1.2;
 }
 .machine-name .ip-name {
   margin-top: 7px;
   color: #64748b;
-  font-size: 13px;
+  font-size: 12px;
   line-height: 1.2;
   opacity: .92;
 }
