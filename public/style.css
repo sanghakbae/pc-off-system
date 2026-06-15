@@ -1314,17 +1314,17 @@ td.late { color: var(--blue); font-weight: 800; }
   .kpi,
   .card,
   .report-page .card {
-    padding: 7px 8px;
+    padding: 6px 7px;
   }
   .metric-card span,
   .kpi span,
   .card-k,
   .report-page .card-k {
-    font-size: 10px;
+    font-size: 9px;
   }
   .metric-card strong,
   .kpi strong {
-    font-size: 19px;
+    font-size: 17px;
   }
   .card-v,
   .report-page .card-v {
@@ -1342,6 +1342,10 @@ td.late { color: var(--blue); font-weight: 800; }
   .machine-name .ip-name {
     font-size: 10px;
   }
+  .overview,
+  .stats-kpis {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
   .log-head,
   .panel-head.split,
   .panel-title-row,
@@ -1352,6 +1356,11 @@ td.late { color: var(--blue); font-weight: 800; }
   .machine-tools input,
   .machine-tools select,
   .tool-btn,
+  .panel-actions,
+  .panel-actions input,
+  .panel-actions select,
+  .panel-actions button,
+  .panel-actions a,
   .log-controls input[type="date"],
   .log-controls select,
   .log-controls button,
@@ -1471,4 +1480,274 @@ td.late { color: var(--blue); font-weight: 800; }
   .stats-kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .stats-grid { grid-template-columns: 1fr; }
   .stat-card.wide { grid-column: span 1; }
+}
+
+@media (max-width: 430px) {
+  body,
+  header p,
+  .meta,
+  .muted,
+  .panel-head p,
+  .away-note,
+  .report-page .away-note,
+  .metric-card span,
+  .kpi span,
+  .card-k,
+  .report-page .card-k,
+  .chart-empty,
+  .chart-legend .leg,
+  .hbar-lab,
+  .hbar-val,
+  table,
+  thead th,
+  tbody td,
+  .report-page table,
+  .report-page thead th,
+  .report-page tbody td,
+  .machine-tools input,
+  .machine-tools select,
+  .tool-btn,
+  .log-controls input[type="date"],
+  .log-controls select,
+  .log-controls button,
+  .csv-btn,
+  .badge,
+  .flag,
+  .src,
+  .empty,
+  #away-panel,
+  #log-panel,
+  #away-panel table,
+  #log-panel table,
+  #away-panel thead th,
+  #log-panel thead th,
+  #away-panel tbody td,
+  #log-panel tbody td,
+  #away-panel .log-controls input[type="date"],
+  #away-panel .log-controls select,
+  #log-panel .log-controls input[type="date"],
+  #log-panel .log-controls select,
+  #away-panel .csv-btn,
+  #log-panel .csv-btn,
+  .pagination,
+  .pagination button,
+  .page-summary {
+    font-size: 9px;
+  }
+
+  header h1,
+  .panel-head h2,
+  .panel > h2,
+  .stat-card h3,
+  .report-page .log-head h2,
+  .report-page .panel > h2,
+  .panel-head h2 .muted,
+  .panel > h2 .muted,
+  .report-page .log-head h2 .muted,
+  .report-page .panel > h2 .muted {
+    font-size: 10px;
+    line-height: 1.2;
+  }
+
+  .metric-card strong,
+  .kpi strong,
+  .card-v,
+  .report-page .card-v {
+    font-size: 13px;
+    line-height: 1.1;
+  }
+
+  .panel,
+  .report-page .panel,
+  .stat-card {
+    padding: 6px;
+  }
+
+  .overview,
+  .stats-kpis {
+    display: grid;
+    gap: 5px;
+    width: 100%;
+    overflow: hidden;
+  }
+  .overview {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  .stats-kpis {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .cards,
+  .report-page .cards {
+    display: grid;
+    gap: 5px;
+    width: 100%;
+    overflow: hidden;
+  }
+  .cards { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .report-page .cards { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+
+  .metric-card,
+  .kpi,
+  .card,
+  .report-page .card {
+    min-width: 0;
+    padding: 5px 6px;
+  }
+
+  .metric-card span,
+  .kpi span,
+  .card-k,
+  .report-page .card-k {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .report-page .log-head,
+  .log-head {
+    display: grid;
+    grid-template-columns: minmax(0, max-content) minmax(0, 1fr);
+    align-items: center;
+    gap: 4px;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .report-page .log-head h2,
+  .log-head h2 {
+    flex: 0 1 auto;
+    min-width: 0;
+  }
+
+  .report-page .log-controls,
+  .log-controls {
+    width: 100%;
+    min-width: 0;
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(0, 1fr);
+    align-items: center;
+    gap: 2px;
+    overflow: hidden;
+  }
+
+  .report-page .log-controls label,
+  .log-controls label,
+  .report-page .log-controls span,
+  .log-controls span {
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .report-page .log-controls input[type="date"],
+  .log-controls input[type="date"] {
+    height: 23px;
+    padding: 0 3px;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .report-page .log-controls button,
+  .log-controls button {
+    height: 23px;
+    padding: 0 3px;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .report-page .csv-btn,
+  .csv-btn {
+    height: 23px;
+    padding: 0 3px;
+    width: 100%;
+    min-width: 0;
+    justify-content: center;
+  }
+
+  .report-page .log-controls select,
+  .log-controls select {
+    height: 23px;
+    padding: 0 3px;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .log-controls .tool-btn {
+    width: 100%;
+    padding: 0 3px;
+  }
+
+  .panel-actions {
+    width: 100%;
+    min-width: 0;
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(0, 1fr);
+    align-items: center;
+    justify-items: stretch;
+    gap: 2px;
+    overflow: hidden;
+  }
+
+  .panel-actions input,
+  .panel-actions select,
+  .panel-actions button,
+  .panel-actions a,
+  .machine-tools input,
+  .machine-tools select,
+  .tool-btn {
+    width: 100%;
+    min-width: 0;
+    height: 23px;
+    padding: 0 3px;
+    justify-content: center;
+    white-space: nowrap;
+  }
+
+  .stat-card h3 {
+    margin-bottom: 5px;
+  }
+
+  .stat-card:has(.chart-empty) {
+    min-height: 0;
+  }
+
+  .chart-empty {
+    min-height: 32px;
+    padding: 4px 0;
+  }
+
+  .donut-wrap {
+    gap: 4px;
+  }
+
+  .donut-wrap .chart-svg {
+    max-width: 128px;
+  }
+
+  .hbars {
+    gap: 5px;
+  }
+
+  .hbar-row {
+    grid-template-columns: 56px 1fr 22px;
+    gap: 4px;
+  }
+
+  .hbar-track {
+    height: 8px;
+  }
+
+  .table-scroll {
+    overflow-x: auto;
+  }
+
+  table,
+  .report-page table {
+    min-width: 0;
+  }
 }

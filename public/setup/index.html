@@ -18,6 +18,20 @@
     code{color:#a7f3d0}.kv{display:flex;gap:10px;flex-wrap:wrap;margin:8px 0}
     .kv span{background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:6px 10px;font-size:14px}
     .warn{color:var(--amber);font-size:14px}.copy-btn{flex:0 0 auto;border:1px solid #334155;border-radius:8px;background:#1f2937;color:#e5e7eb;padding:7px 10px;font-size:13px;font-weight:700;cursor:pointer}
+    @media (max-width:430px){
+      header h1,.step h3{font-size:10px;line-height:1.2}
+      .wrap{padding:8px 8px calc(76px + env(safe-area-inset-bottom))}
+      .step{padding:6px;margin:0 0 7px}
+      .step-head{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:5px;margin-bottom:5px}
+      .setup-field{display:grid;grid-template-columns:82px minmax(0,1fr);gap:5px}
+      .setup-field label,.setup-field input,.warn,.kv span,.copy-btn,pre,code{font-size:9px}
+      .setup-field input{height:26px;padding:0 6px}
+      .copy-btn{height:26px;padding:0 7px}
+      pre{min-height:72px;padding:6px;line-height:1.35}
+      .kv{gap:4px;margin:5px 0}
+      .kv span{padding:3px 5px}
+      .warn{margin:5px 0 0}
+    }
   </style>
 </head>
 <body class="setup-page">
