@@ -1,0 +1,17 @@
+# 의존성
+node_modules/
+
+# 런타임 데이터
+data/
+hardware_asset.xlsx
+ci.jpg
+
+# 에이전트 로그
+*.log
+agent/macos/*.err
+
+# macOS
+.DS_Store
+
+# 로컬 설정
+.claude/

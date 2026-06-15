@@ -1,0 +1,21 @@
+{
+  "name": "pcmonitoring",
+  "version": "1.0.0",
+  "description": "동일 네트워크 업무용 PC의 켜짐/잠금/잠금해제 시각을 수집·표시하는 모니터링 서버",
+  "main": "src/server.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js"
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.1068.0",
+    "@e965/xlsx": "^0.20.3",
+    "cloudflare": "^6.4.0",
+    "dotenv": "^16.6.1",
+    "express": "^4.21.0",
+    "firebase": "^12.14.0",
+    "firebase-admin": "^14.0.0",
+    "pg": "^8.16.3"
+  }
+}

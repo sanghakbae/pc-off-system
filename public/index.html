@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PC-OFF</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/favicon.svg" />
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <div>
+        <h1>PC-OFF</h1>
+        <p>에이전트 PC의 접속, 잠금, 사용 이벤트를 확인합니다.</p>
+      </div>
+    </div>
+    <div class="meta">
+      <span id="summary">불러오는 중…</span>
+      <span class="updated">갱신 <span id="updated">—</span></span>
+      <a href="/report">감사 리포트</a>
+      <a href="/setup">에이전트 설치</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="overview" id="pc-overview-panel">
+      <div class="metric-card">
+        <span>전체 에이전트</span>
+        <strong id="metric-total">0</strong>
+      </div>
+      <div class="metric-card">
+        <span>온라인</span>
+        <strong id="metric-active">0</strong>
+      </div>
+      <div class="metric-card">
+        <span>잠금(자리비움)</span>
+        <strong id="metric-locked">0</strong>
+      </div>
+      <div class="metric-card">
+        <span>맵핑 안됨</span>
+        <strong id="metric-offline">0</strong>
+      </div>
+    </section>
+
+    <section class="panel portal-dashboard-section" id="stats-panel">
+      <div class="panel-head log-head">
+        <h2>통계 대시보드</h2>
+        <div class="log-controls">
+          <input type="date" id="stats-from" />
+          <span>~</span>
+          <input type="date" id="stats-to" />
+          <button type="button" class="tool-btn" id="stats-reload">조회</button>
+        </div>
+      </div>
+      <div class="stats-kpis" id="stats-kpis"></div>
+      <div class="stats-grid" id="stats-grid">
+        <div class="empty">불러오는 중…</div>
+      </div>
+    </section>
+
+    <section class="panel portal-machines-section" id="pc-status-panel">
+      <div class="panel-head split">
+        <div class="panel-title-row">
+          <h2>PC 현황</h2>
+          <div class="status-legend" aria-label="상태 범례">
+            <span><i class="legend-swatch status-online"></i>온라인</span>
+            <span><i class="legend-swatch status-offline"></i>오프라인</span>
+            <span><i class="legend-swatch status-locked"></i>잠금(자리비움)</span>
+          </div>
+        </div>
+        <div class="panel-actions">
+          <div class="machine-tools">
+            <input type="search" id="machine-search" placeholder="이름, PC, IP 검색" />
+            <select id="machine-status">
+              <option value="">전체 상태</option>
+              <option value="online">온라인</option>
+              <option value="offline">오프라인</option>
+              <option value="locked">잠금</option>
+            </select>
+            <input type="file" id="directory-import-file" accept=".csv,text/csv,.xlsx,.xls" hidden />
+            <button type="button" class="tool-btn" id="directory-import">가져오기</button>
+            <a class="tool-btn" id="directory-export" href="/api/device-directory/export.xlsx">내보내기</a>
+            <button type="button" class="tool-btn" id="directory-list">사용자 목록</button>
+          </div>
+        </div>
+      </div>
+      <div id="machine-grid" class="machine-grid">
+      </div>
+    </section>
+
+    <section class="panel portal-machines-section" id="away-panel">
+      <div class="panel-head log-head">
+        <h2>자리 비움 분석</h2>
+        <div class="log-controls">
+          <button id="away-prev" title="전날">‹</button>
+          <input type="date" id="away-date" />
+          <button id="away-next" title="다음날">›</button>
+        </div>
+      </div>
+      <p class="away-note muted" id="away-note"></p>
+      <div class="table-scroll">
+        <table id="away-table">
+          <thead>
+            <tr>
+              <th>PC (호스트명)</th>
+              <th>출근</th>
+              <th>퇴근</th>
+              <th>자리 비움 / 오프라인 횟수</th>
+              <th>총 시간</th>
+              <th>최장 연속</th>
+              <th>표시</th>
+            </tr>
+          </thead>
+          <tbody id="away-rows">
+            <tr><td colspan="7" class="empty">불러오는 중…</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="panel portal-machines-section" id="log-panel">
+      <div class="panel-head log-head">
+        <h2>일별 로그</h2>
+        <div class="log-controls">
+          <select id="log-user" title="사용자 필터">
+            <option value="">전체 사용자</option>
+          </select>
+          <button id="log-prev" title="전날">‹</button>
+          <input type="date" id="log-date" />
+          <button id="log-next" title="다음날">›</button>
+          <a id="log-csv" class="csv-btn" href="#">CSV 다운로드</a>
+        </div>
+      </div>
+      <div class="table-scroll">
+        <table id="log-table">
+          <thead>
+            <tr>
+              <th>시각</th>
+              <th>이벤트</th>
+              <th>PC (호스트명)</th>
+              <th>사용자</th>
+              <th>상태</th>
+              <th>접속 IP</th>
+              <th>로컬 IP</th>
+              <th>VPN</th>
+              <th>VPN IP</th>
+              <th>MAC</th>
+              <th>수신시각</th>
+              <th>방식</th>
+            </tr>
+          </thead>
+          <tbody id="log-rows">
+            <tr><td colspan="12" class="empty">불러오는 중…</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="pagination" id="log-pagination"></div>
+    </section>
+  </main>
+
+  <!-- PC 상세 모달 -->
+  <div id="modal" class="modal hidden">
+    <div class="modal-card">
+      <div class="modal-head">
+        <div>
+          <h2 id="modal-title">PC 상세</h2>
+          <p id="modal-subtitle" class="muted"></p>
+        </div>
+        <div class="modal-period">
+          <span>조회 기간</span>
+          <input type="date" id="modal-date-from" />
+          <span>~</span>
+          <input type="date" id="modal-date-to" />
+          <button id="modal-csv">CSV</button>
+          <button id="modal-disable-monitoring" class="danger-btn">감시 끄기</button>
+          <button id="modal-close">닫기</button>
+        </div>
+      </div>
+      <div class="modal-body">
+        <section class="modal-section">
+          <h3>PC 상세 정보</h3>
+          <div id="machine-detail-info" class="detail-info-grid">
+            <div class="empty">불러오는 중…</div>
+          </div>
+        </section>
+        <section class="modal-section">
+          <h3>보안 에이전트 설치 여부</h3>
+          <div id="security-tools" class="security-tools">
+            <div class="empty">미수집</div>
+          </div>
+        </section>
+        <section class="modal-section">
+          <h3>자리 비움 분석</h3>
+          <div class="table-scroll">
+            <table class="modal-table">
+              <thead>
+                <tr>
+                  <th>일자</th>
+                  <th>출근</th>
+                  <th>퇴근</th>
+                  <th>횟수</th>
+                  <th>총 시간</th>
+                  <th>최장</th>
+                  <th>표시</th>
+                </tr>
+              </thead>
+              <tbody id="modal-away-rows">
+                <tr><td colspan="7" class="empty">불러오는 중…</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+        <section class="modal-section">
+          <h3>IP 변경 이력</h3>
+          <div class="table-scroll">
+            <table class="modal-table">
+              <thead>
+                <tr>
+                  <th>시각</th>
+                  <th>접속 IP</th>
+                  <th>로컬 IP</th>
+                  <th>VPN</th>
+                  <th>VPN IP</th>
+                  <th>MAC</th>
+                  <th>사유</th>
+                </tr>
+              </thead>
+              <tbody id="modal-ip-rows">
+                <tr><td colspan="7" class="empty">불러오는 중…</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+        <section class="modal-section">
+          <h3>일별 로그</h3>
+          <div class="table-scroll">
+            <table class="modal-table">
+              <thead>
+                <tr>
+                  <th>일자</th>
+                  <th>시각</th>
+                  <th>이벤트</th>
+                  <th>방식</th>
+                </tr>
+              </thead>
+              <tbody id="modal-log-rows">
+                <tr><td colspan="4" class="empty">불러오는 중…</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="pagination" id="modal-log-pagination"></div>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <!-- 사용자 목록 모달 -->
+  <div id="directory-modal" class="modal hidden">
+    <div class="modal-card directory-card">
+      <div class="modal-head">
+        <div>
+          <h2>사용자 목록</h2>
+          <p class="muted">가져온 hardware_asset.xlsx 데이터입니다. 저장 시 MAC 기준으로 에이전트에 다시 매핑합니다.</p>
+        </div>
+        <button id="directory-close">닫기</button>
+      </div>
+      <div class="modal-body">
+        <div class="directory-grid" id="directory-rows">
+          <div class="empty">불러오는 중…</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    import '/nav.js';
+    import '/firebase.js';
+    import '/app.js';
+  </script>
+</body>
+</html>

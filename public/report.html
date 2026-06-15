@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>업무 PC 감사 리포트</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body class="report-page">
+  <header>
+    <h1>업무 PC 감사 리포트</h1>
+    <div class="meta"><a href="/" style="color:var(--blue);text-decoration:none">← 대시보드</a></div>
+  </header>
+
+  <main>
+    <section class="panel">
+      <div class="log-head">
+        <h2>기간 감사 <span class="muted">— 출근·퇴근·지각·자리비움</span></h2>
+        <div class="log-controls">
+          <label class="muted">기간</label>
+          <input type="date" id="from" /><span>~</span><input type="date" id="to" />
+          <button id="load">조회</button>
+          <a id="csv" class="csv-btn" href="#">CSV</a>
+        </div>
+      </div>
+      <p class="away-note muted" id="note"></p>
+      <div id="cards" class="cards"></div>
+      <div id="content"><p class="empty">기간을 선택하고 조회하세요.</p></div>
+    </section>
+
+    <section class="panel">
+      <h2>이상 징후 감사 <span class="muted">— 심야·주말 사용 / 결근·무활동 / 단시간 사용</span></h2>
+      <div id="anomalies"><p class="empty">—</p></div>
+    </section>
+
+    <section class="panel">
+      <div class="log-head">
+        <h2>사각지대 점검 <span class="muted">— 보고 끊긴 에이전트 / 오프라인 PC</span></h2>
+        <div class="log-controls">
+          <label class="muted">기준</label>
+          <select id="cov-hours">
+            <option value="12">12시간 무보고</option>
+            <option value="24" selected>1일 무보고</option>
+            <option value="72">3일 무보고</option>
+            <option value="168">7일 무보고</option>
+          </select>
+        </div>
+      </div>
+      <div id="coverage"><p class="empty">—</p></div>
+    </section>
+
+    <section class="panel">
+      <div class="log-head">
+        <h2>감사 로그 검색 <span class="muted">— PC·이벤트로 필터</span></h2>
+        <div class="log-controls">
+          <select id="f-machine"><option value="">전체 PC</option></select>
+          <select id="f-type">
+            <option value="">전체 이벤트</option>
+            <option value="login">로그인</option>
+            <option value="unlock">잠금해제</option>
+            <option value="lock">잠금</option>
+          </select>
+          <a id="search-csv" class="csv-btn" href="#">CSV</a>
+        </div>
+      </div>
+      <div id="search-result"><p class="empty">검색 조건을 선택하세요.</p></div>
+    </section>
+  </main>
+  <script type="module">
+    import '/nav.js';
+    import '/firebase.js';
+    import '/report.js';
+  </script>
+</body>
+</html>
