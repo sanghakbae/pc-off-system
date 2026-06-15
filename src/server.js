@@ -568,6 +568,7 @@ app.get('/setup', (req, res) => {
   .copy-btn.copied{border-color:#10b981;color:#a7f3d0}
   @media (max-width:640px){header .brand{display:block}.wrap{padding:12px}.step{padding:14px}.step-head{align-items:flex-start}.setup-field{grid-template-columns:1fr}pre{font-size:12px}}
   @media (max-width:430px){
+    body,body *{font-size:9px}
     header h1,.step h3{font-size:10px;line-height:1.2}
     .wrap{padding:8px 8px calc(76px + env(safe-area-inset-bottom))}
     .step{padding:6px;margin:0 0 7px}

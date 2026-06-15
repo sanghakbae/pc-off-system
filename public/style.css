@@ -1484,6 +1484,11 @@ td.late { color: var(--blue); font-weight: 800; }
 
 @media (max-width: 430px) {
   body,
+  body * {
+    font-size: 9px;
+  }
+
+  body,
   header p,
   .meta,
   .muted,
@@ -1591,7 +1596,7 @@ td.late { color: var(--blue); font-weight: 800; }
   .kpi strong,
   .card-v,
   .report-page .card-v {
-    font-size: 13px;
+    font-size: 10px;
     line-height: 1.1;
   }
 
