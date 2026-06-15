@@ -546,7 +546,7 @@ app.get('/api/away', async (req, res) => {
 
 // --- 에이전트 배포(설치 안내) 페이지 ---
 app.get('/setup', (req, res) => {
-  const base = String(config.publicBaseUrl || 'http://127.0.0.1:4501').replace(/\/+$/, '');
+  const base = String(config.publicBaseUrl || 'https://pcoff.sanghak.kr').replace(/\/+$/, '');
   const tok = config.token;
   const html = `<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -554,13 +554,13 @@ app.get('/setup', (req, res) => {
 <link rel="stylesheet" href="/style.css">
 <style>
   header .brand{display:flex;min-width:0;align-items:center;gap:16px}
-  .wrap{width:100%;max-width:none;margin:0;padding:28px 0 40px}
-  .step{width:100%;min-width:0;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:16px 18px;margin:0 0 14px}
+  .wrap{width:100%;max-width:none;margin:0;padding:18px 0 32px}
+  .step{width:100%;min-width:0;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:14px 16px;margin:0 0 12px}
   .step h3{margin:0;font-size:var(--title-size);line-height:1.3;font-weight:700}.step-head{display:flex;min-width:0;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px}
   .setup-field{display:grid;grid-template-columns:160px minmax(0,1fr);gap:10px;align-items:center}
   .setup-field label{font-size:13px;font-weight:800;color:var(--muted)}
-  .setup-field input{width:100%;height:38px;border:1px solid var(--line);border-radius:8px;padding:0 12px;font-size:14px;color:var(--text);background:#fff}
-  pre{width:100%;max-width:100%;min-width:0;min-height:132px;background:#0b0d11;border:1px solid var(--line);border-radius:8px;padding:16px;overflow:visible;font-size:13px;line-height:1.65;white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-all}
+  .setup-field input{width:100%;height:32px;border:1px solid var(--line);border-radius:8px;padding:0 10px;font-size:13px;color:var(--text);background:#fff}
+  pre{width:100%;max-width:100%;min-width:0;min-height:120px;background:#0b0d11;border:1px solid var(--line);border-radius:8px;padding:12px 14px;overflow:visible;font-size:12px;line-height:1.6;white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-all}
   pre code{display:block;white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-all}
   code{color:#a7f3d0}.kv{display:flex;gap:10px;flex-wrap:wrap;margin:8px 0}
   .kv span{background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:6px 10px;font-size:13px}

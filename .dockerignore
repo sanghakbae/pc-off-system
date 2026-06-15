@@ -1,0 +1,12 @@
+node_modules
+npm-debug.log
+.git
+.github
+.env
+.env.*
+!.env.example
+data
+hardware_asset.xlsx
+ci.jpg
+.DS_Store
+.claude

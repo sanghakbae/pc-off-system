@@ -5,7 +5,7 @@ module.exports = {
   port: parseInt(process.env.PORT || '4500', 10),
   // 0.0.0.0 으로 바인딩해야 동일 네트워크의 다른 PC 에이전트가 접속 가능
   host: process.env.HOST || '0.0.0.0',
-  publicBaseUrl: process.env.PMON_PUBLIC_BASE_URL || 'http://127.0.0.1:4501',
+  publicBaseUrl: process.env.PMON_PUBLIC_BASE_URL || 'https://pcoff.sanghak.kr',
   installGoogleChatWebhookUrl: process.env.PMON_INSTALL_GOOGLE_CHAT_WEBHOOK_URL || '',
   // 에이전트와 공유하는 비밀 토큰. 운영 시 반드시 변경하세요.
   token: process.env.AGENT_TOKEN || 'change-me-pmon-token',

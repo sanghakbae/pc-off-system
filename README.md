@@ -7,8 +7,8 @@
 
 - 포탈 메뉴: `도구 > PC OFF`
 - 포탈 내부 화면: `https://example.com/pc-monitoring`
-- 공개 에이전트 설치 페이지: `http://127.0.0.1:4501`
-- 에이전트 보고 API: `https://example.com/agent/api/report`
+- 공개 에이전트 설치 페이지: `https://pcoff.sanghak.kr`
+- 에이전트 보고 API: `https://pcoff.sanghak.kr/api/report`
 - 내부 모니터링 서버 기본 포트: `4500`
 - 데이터베이스: 보안 포탈 PostgreSQL DB
 
@@ -38,7 +38,7 @@ SQLite를 사용하지 않습니다. 보안 포탈이 연결한 PostgreSQL DB에
 ```bash
 cd sub11_pcmon
 npm install
-PMON_PUBLIC_BASE_URL="http://127.0.0.1:4501" npm start
+PMON_PUBLIC_BASE_URL="https://pcoff.sanghak.kr" npm start
 ```
 
 주요 환경변수:
@@ -49,7 +49,7 @@ PMON_PUBLIC_BASE_URL="http://127.0.0.1:4501" npm start
 | `PGHOST`, `PGPORT`, `PGDATABASE`, `PGUSER`, `PGPASSWORD` | 없음 | 보안 포탈 PostgreSQL 연결 정보 |
 | `DATABASE_URL` | 없음 | PostgreSQL 단일 연결 문자열 |
 | `AGENT_TOKEN` | `change-me-pmon-token` | 에이전트 공유 토큰 |
-| `PMON_PUBLIC_BASE_URL` | `http://127.0.0.1:4501` | 에이전트가 사용할 공개 설치/API 기준 주소 |
+| `PMON_PUBLIC_BASE_URL` | `https://pcoff.sanghak.kr` | 에이전트가 사용할 공개 설치/API 기준 주소 |
 | `HEARTBEAT_SEC` | `30` | 하트비트 간격 |
 | `PING_SEC` | `30` | 핑 감시 대상 확인 간격 |
 | `AWAY_LONG_MIN` | `60` | 오래 비움 기준 |
@@ -74,7 +74,7 @@ PMON_PUBLIC_BASE_URL="http://127.0.0.1:4501" npm start
 수동 스냅샷 동기화:
 
 ```bash
-curl -X POST http://127.0.0.1:4501/api/firebase/sync \
+curl -X POST https://pcoff.sanghak.kr/api/firebase/sync \
   -H "Authorization: Bearer <firebase-id-token>"
 ```
 
@@ -108,6 +108,29 @@ macOS/Windows 설치 명령이 해당 주소 기준으로 다시 생성됩니다
 macOS 설치는 `~/Applications/PC-OFF Agent.app` 앱 번들을 만들고 LaunchAgent로 등록합니다.
 
 Windows 설치는 현재 사용자 로그온 시 자동 시작되는 작업 스케줄러 작업 `pmon-agent`를 등록합니다.
+
+## GitHub Actions 배포
+
+`main` 브랜치에 push하면 `.github/workflows/deploy.yml`이 Docker 이미지를 GHCR에 올리고,
+배포 서버에서 `docker compose`로 `https://pcoff.sanghak.kr` 서비스를 갱신합니다.
+
+GitHub Secrets:
+
+| Secret | 설명 |
+|--------|------|
+| `DEPLOY_HOST` | SSH 접속 대상 서버 |
+| `DEPLOY_USER` | SSH 사용자 |
+| `DEPLOY_SSH_KEY` | SSH private key |
+| `DEPLOY_PORT` | SSH 포트, 없으면 `22` |
+| `DEPLOY_DIR` | 서버 배포 디렉터리, 없으면 `/opt/pcoff` |
+| `DEPLOY_ENV_B64` | 전체 운영 `.env`를 base64 인코딩한 값. 있으면 아래 개별 환경 Secret보다 우선 |
+| `DATABASE_URL` | 운영 PostgreSQL 연결 문자열 |
+| `AGENT_TOKEN` | 에이전트 공유 토큰 |
+| `FIREBASE_*`, `R2_*` | 사용하는 경우에만 설정 |
+
+서버에는 Docker와 Docker Compose plugin이 설치되어 있어야 합니다. 도메인
+`pcoff.sanghak.kr`은 서버의 reverse proxy 또는 Cloudflare Tunnel에서 컨테이너의
+`127.0.0.1:4500`으로 연결합니다.
 
 ## 수집 정보
 
