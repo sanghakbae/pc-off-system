@@ -577,7 +577,7 @@ app.get('/setup', (req, res) => {
     .setup-field label,.setup-field input,.warn,.kv span,.copy-btn,pre,code{font-size:9px}
     .setup-field input{height:26px;padding:0 6px}
     .copy-btn{height:26px;padding:0 7px}
-    pre{min-height:72px;padding:6px;line-height:1.35}
+    pre{min-height:0;padding:4px 5px 3px;line-height:1.2}
     .kv{gap:4px;margin:5px 0}
     .kv span{padding:3px 5px}
     .warn{margin:5px 0 0}
