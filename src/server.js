@@ -554,17 +554,17 @@ app.get('/setup', (req, res) => {
 <link rel="stylesheet" href="/style.css">
 <style>
   header .brand{display:flex;min-width:0;align-items:center;gap:16px}
-  .wrap{width:100%;max-width:none;margin:0;padding:18px 0 32px}
-  .step{width:100%;min-width:0;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:14px 16px;margin:0 0 12px}
+  .wrap{width:100%;max-width:none;margin:0;padding:16px 16px 28px}
+  .step{width:100%;min-width:0;background:linear-gradient(180deg,rgba(255,255,255,.98),rgba(250,252,255,.98));border:1px solid var(--line);border-radius:8px;padding:14px 16px;margin:0 0 14px;box-shadow:var(--shadow)}
   .step h3{margin:0;font-size:var(--title-size);line-height:1.3;font-weight:700}.step-head{display:flex;min-width:0;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px}
-  .setup-field{display:grid;grid-template-columns:160px minmax(0,1fr);gap:10px;align-items:center}
-  .setup-field label{font-size:13px;font-weight:800;color:var(--muted)}
-  .setup-field input{width:100%;height:32px;border:1px solid var(--line);border-radius:8px;padding:0 10px;font-size:13px;color:var(--text);background:#fff}
-  pre{width:100%;max-width:100%;min-width:0;min-height:120px;background:#0b0d11;border:1px solid var(--line);border-radius:8px;padding:12px 14px;overflow:visible;font-size:12px;line-height:1.6;white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-all}
+  .setup-field{display:grid;grid-template-columns:180px minmax(0,1fr);gap:12px;align-items:center}
+  .setup-field label{font-size:14px;font-weight:700;color:var(--muted)}
+  .setup-field input{width:100%;height:36px;border:1px solid var(--line);border-radius:8px;padding:0 12px;font-size:14px;color:var(--text);background:#fff}
+  pre{width:100%;max-width:100%;min-width:0;min-height:112px;background:#0b0d11;border:1px solid var(--line);border-radius:8px;padding:12px 14px;overflow:visible;font-size:13px;line-height:1.6;white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-all;box-shadow:0 14px 28px rgba(15,23,42,.18)}
   pre code{display:block;white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-all}
   code{color:#a7f3d0}.kv{display:flex;gap:10px;flex-wrap:wrap;margin:8px 0}
-  .kv span{background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:6px 10px;font-size:13px}
-  .warn{color:var(--amber);font-size:13px}.copy-btn{flex:0 0 auto;border:1px solid #334155;border-radius:8px;background:#1f2937;color:#e5e7eb;padding:7px 10px;font-size:12px;font-weight:700;cursor:pointer}
+  .kv span{background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:6px 10px;font-size:14px}
+  .warn{color:var(--amber);font-size:14px}.copy-btn{flex:0 0 auto;border:1px solid #334155;border-radius:8px;background:#1f2937;color:#e5e7eb;padding:7px 10px;font-size:13px;font-weight:700;cursor:pointer}
   .copy-btn.copied{border-color:#10b981;color:#a7f3d0}
   @media (max-width:640px){header .brand{display:block}.wrap{padding:12px}.step{padding:14px}.step-head{align-items:flex-start}.setup-field{grid-template-columns:1fr}pre{font-size:12px}}
 </style></head><body class="setup-page">
