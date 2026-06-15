@@ -32,6 +32,8 @@ jobs:
             echo "configured=true" >> "$GITHUB_OUTPUT"
           else
             echo "configured=false" >> "$GITHUB_OUTPUT"
+            echo "::error::Server deploy secrets are missing. Configure DEPLOY_HOST, DEPLOY_USER, and DEPLOY_SSH_KEY before deploying pcoff.sanghak.kr."
+            exit 1
           fi
 
   build:
@@ -140,15 +142,3 @@ jobs:
 
       - name: Verify deployment
         run: curl -fsS "${{ env.PUBLIC_BASE_URL }}/api/health"
-
-  deployment-not-configured:
-    runs-on: ubuntu-latest
-    needs:
-      - preflight
-      - build
-    if: ${{ needs.preflight.outputs.deploy_configured != 'true' }}
-    steps:
-      - name: Explain skipped deploy
-        run: |
-          echo "Docker image was built and pushed to GHCR."
-          echo "Server deploy was skipped because DEPLOY_HOST, DEPLOY_USER, or DEPLOY_SSH_KEY is not configured."
