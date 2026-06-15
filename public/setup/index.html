@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PC OFF 에이전트 설치</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="stylesheet" href="/style.css" />
+  <style>
+    .wrap{width:100%;max-width:none;margin:0;padding:16px 16px 28px}
+    .step{width:100%;min-width:0;background:linear-gradient(180deg,rgba(255,255,255,.98),rgba(250,252,255,.98));border:1px solid var(--line);border-radius:8px;padding:14px 16px;margin:0 0 14px;box-shadow:var(--shadow)}
+    .step h3{margin:0;font-size:var(--title-size);line-height:1.3;font-weight:700}.step-head{display:flex;min-width:0;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px}
+    .setup-field{display:grid;grid-template-columns:180px minmax(0,1fr);gap:12px;align-items:center}
+    .setup-field label{font-size:14px;font-weight:700;color:var(--muted)}
+    .setup-field input{width:100%;height:36px;border:1px solid var(--line);border-radius:8px;padding:0 12px;font-size:14px;color:var(--text);background:#fff}
+    pre{width:100%;max-width:100%;min-width:0;min-height:112px;background:#0b0d11;border:1px solid var(--line);border-radius:8px;padding:12px 14px;overflow:visible;font-size:13px;line-height:1.6;white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-all;box-shadow:0 14px 28px rgba(15,23,42,.18)}
+    pre code{display:block;white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-all}
+    code{color:#a7f3d0}.kv{display:flex;gap:10px;flex-wrap:wrap;margin:8px 0}
+    .kv span{background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:6px 10px;font-size:14px}
+    .warn{color:var(--amber);font-size:14px}.copy-btn{flex:0 0 auto;border:1px solid #334155;border-radius:8px;background:#1f2937;color:#e5e7eb;padding:7px 10px;font-size:13px;font-weight:700;cursor:pointer}
+  </style>
+</head>
+<body class="setup-page">
+  <header><div class="brand"><h1>PC OFF 에이전트 설치</h1></div><div class="meta"><a href="/" style="color:var(--blue)">← 대시보드</a></div></header>
+  <div class="wrap">
+    <div class="step"><div class="setup-field"><label for="agent-server">에이전트 설치 주소</label><input id="agent-server" type="url" value="https://pcoff.sanghak.kr" spellcheck="false" /></div><p class="warn">주소를 변경하면 아래 macOS/Windows 설치 명령도 함께 변경됩니다.</p></div>
+    <div class="step"><div class="step-head"><h3>macOS 터미널 설치</h3><button type="button" class="copy-btn" data-copy-target="mac-command">복사</button></div><pre><code id="mac-command"></code></pre><p class="warn">PC-OFF Agent 앱 번들을 만들고 현재 사용자 LaunchAgent로 등록합니다.</p></div>
+    <div class="step"><div class="step-head"><h3>Windows 설치</h3><button type="button" class="copy-btn" data-copy-target="windows-command">복사</button></div><pre><code id="windows-command"></code></pre></div>
+    <div class="step"><h3>수집 정보</h3><div class="kv"><span>hostname</span><span>사용자명</span><span>OS</span><span>LAN IP</span><span>MAC 주소</span><span>잠금/해제/상태 보고 시각</span></div><p class="warn">근로자 PC 모니터링은 사전 고지, 목적 제한, 내부 승인 절차가 필요할 수 있습니다.</p></div>
+  </div>
+  <script>
+    const token = 'change-me-pmon-token';
+    const serverInput = document.getElementById('agent-server');
+    const macCommand = document.getElementById('mac-command');
+    const windowsCommand = document.getElementById('windows-command');
+    const shellQuote = (value) => '"' + String(value).replace(/["\\$`]/g, '\\$&') + '"';
+    const psSingleQuote = (value) => "'" + String(value).replace(/'/g, "''") + "'";
+    function renderCommands() {
+      const server = (serverInput.value || 'https://pcoff.sanghak.kr').trim().replace(/\/+$/, '');
+      macCommand.textContent = ['mkdir -p ~/pmon-agent && cd ~/pmon-agent','rm -f pmon-agent.sh install.sh','curl -fsSL ' + shellQuote(server + '/download/macos/pmon-agent.sh') + ' -o pmon-agent.sh','curl -fsSL ' + shellQuote(server + '/download/macos/install.sh') + ' -o install.sh','chmod +x install.sh','PMON_SERVER=' + shellQuote(server) + ' PMON_TOKEN=' + shellQuote(token) + ' ./install.sh'].join(' &&\n');
+      windowsCommand.textContent = ['powershell -NoProfile -ExecutionPolicy Bypass -Command "',"$ErrorActionPreference='Stop';",'md $env:USERPROFILE\\pmon-agent -Force | Out-Null;','cd $env:USERPROFILE\\pmon-agent;','Remove-Item .\\pmon-agent.ps1,.\\install.ps1 -Force -ErrorAction SilentlyContinue;','iwr ' + psSingleQuote(server + '/download/windows/pmon-agent.ps1') + ' -OutFile pmon-agent.ps1;','iwr ' + psSingleQuote(server + '/download/windows/install.ps1') + ' -OutFile install.ps1;','.\\install.ps1 -Server ' + psSingleQuote(server) + ' -Token ' + psSingleQuote(token) + '"'].join('\n');
+    }
+    serverInput.addEventListener('input', renderCommands); renderCommands();
+    document.querySelectorAll('[data-copy-target]').forEach((button) => button.addEventListener('click', async () => { const target = document.getElementById(button.dataset.copyTarget); await navigator.clipboard.writeText(target.innerText); button.textContent = '복사됨'; setTimeout(() => { button.textContent = '복사'; }, 1400); }));
+  </script>
+  <script type="module">import '/nav.js';</script>
+</body>
+</html>

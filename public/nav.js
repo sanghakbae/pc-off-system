@@ -15,14 +15,14 @@ const NAV_ITEMS = [
   },
   {
     key: 'report',
-    href: '/report',
+    href: '/report/',
     title: '감사 리포트',
     subtitle: '기간별 감사 리포트',
     icon: 'report',
   },
   {
     key: 'setup',
-    href: '/setup',
+    href: '/setup/',
     title: '에이전트 설치',
     subtitle: '설치 안내 및 상태',
     icon: 'download',
@@ -32,8 +32,8 @@ const NAV_ITEMS = [
 function currentNavKey() {
   const path = window.location.pathname;
   const view = new URLSearchParams(window.location.search).get('view');
-  if (path === '/report') return 'report';
-  if (path === '/setup') return 'setup';
+  if (path === '/report' || path === '/report/') return 'report';
+  if (path === '/setup' || path === '/setup/') return 'setup';
   if (view === 'machines') return 'machines';
   return 'dashboard';
 }
