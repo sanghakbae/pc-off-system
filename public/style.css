@@ -1566,9 +1566,11 @@ td.late { color: var(--blue); font-weight: 800; }
   header {
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto;
-    align-items: start;
-    gap: 6px;
+    align-items: center;
+    gap: 4px;
     min-height: 0;
+    padding-top: 6px;
+    padding-bottom: 6px;
   }
 
   header .brand {
@@ -1580,25 +1582,40 @@ td.late { color: var(--blue); font-weight: 800; }
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    gap: 4px;
+    gap: 3px;
     min-width: 0;
     margin-top: 0;
     text-align: right;
     white-space: nowrap;
+    flex-wrap: nowrap;
   }
 
   header .meta a,
   header .meta button,
   .meta a,
   .meta button {
-    max-width: 92px;
-    height: 22px;
-    padding: 0 5px;
+    flex: 0 0 auto;
+    width: auto;
+    max-width: none;
+    height: 18px;
+    min-height: 18px;
+    padding: 0 4px;
     font-size: 9px !important;
-    line-height: 20px;
+    line-height: 16px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+
+  .auth-btn {
+    min-width: 70px;
+  }
+
+  header h1 {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    min-height: 18px;
   }
 
   header h1,
